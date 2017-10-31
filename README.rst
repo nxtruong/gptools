@@ -24,3 +24,19 @@ If you find this software useful, please be sure to cite it:
 M.A. Chilenski et al. 2015 Nucl. Fusion 55 023012
 
 http://stacks.iop.org/0029-5515/55/023012
+
+
+
+Notes on using the derivative option in ``add_data``
+----------------------------------------------------
+Taken from this discussion: https://github.com/markchil/gptools/issues/7
+
+In the meantime, the ``n`` input is designed to let you make as general of a specification of inputs as possible. Essentially, it is asking you to unravel the Hessian. So, say you are working with a 2d process and you have the Hessian ``H=[[1, 2], [2, 3]]`` at point ``x = [0, 1]``. You then unravel H and you probably want to drop the redundant element(s). So, your inputs would be:
+
+    y = [1, 2, 3]
+    
+    X = [[0, 1], [0, 1], [0, 1]]
+    
+    n = [[2, 0], [1, 1], [0, 2]]
+
+You can then add these all at once with ``gp.add_data(X, y, n=n)``.
